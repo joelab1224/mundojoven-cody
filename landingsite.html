@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mundo Joven - Travel Booking</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background-color: #f7fafc;
+            color: #2d3748;
+            font-size: 14px;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: white;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            z-index: 100;
+        }
+
+        .logo {
+            color: #e53e3e;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .header-center {
+            display: flex;
+            align-items: center;
+            margin-left: 40px;
+        }
+
+        .office-selector {
+            display: flex;
+            align-items: center;
+            color: #4a5568;
+            font-size: 14px;
+        }
+
+        .star-icon {
+            color: #3182ce;
+            margin-right: 8px;
+        }
+
+        .header-right {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header-icon {
+            width: 20px;
+            height: 20px;
+            color: #718096;
+            cursor: pointer;
+        }
+
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #e53e3e;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background: white;
+            border-right: 1px solid #e2e8f0;
+            padding-top: 60px;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .sidebar-nav {
+            padding: 20px 0;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            color: #4a5568;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .nav-item:hover {
+            background: #f7fafc;
+            color: #2d3748;
+        }
+
+        .nav-item.active {
+            background: #edf2f7;
+            color: #3182ce;
+            border-right: 3px solid #3182ce;
+        }
+
+        .nav-icon {
+            width: 16px;
+            height: 16px;
+            margin-right: 12px;
+        }
+
+        .nav-submenu {
+            margin-left: 28px;
+        }
+
+        .nav-submenu .nav-item {
+            padding: 8px 20px;
+            font-size: 13px;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: 250px;
+            padding-top: 60px;
+        }
+
+        .content-header {
+            background: white;
+            padding: 20px 30px;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .client-title {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .client-title h1 {
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .status-badge {
+            background: #fed7aa;
+            color: #c2410c;
+            padding: 4px 12px;
+            border-radius: 16px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .advisor-info {
+            text-align: right;
+            font-size: 13px;
+            color: #718096;
+        }
+
+        .advisor-name {
+            color: #2d3748;
+            font-weight: 500;
+        }
+
+        .advisor-avatar {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #3182ce;
+            color: white;
+            font-size: 10px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 8px;
+        }
+
+        /* Tabs */
+        .tabs {
+            background: white;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .tab-nav {
+            display: flex;
+            padding: 0 30px;
+        }
+
+        .tab-item {
+            padding: 15px 20px;
+            color: #718096;
+            text-decoration: none;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .tab-item.active {
+            color: #3182ce;
+            border-bottom-color: #3182ce;
+        }
+
+        /* Content Area */
+        .content-body {
+            display: flex;
+            padding: 30px;
+            gap: 30px;
+        }
+
+        .content-left {
+            flex: 2;
+        }
+
+        .content-right {
+            flex: 1;
+        }
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .card-header {
+            padding: 20px 20px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #2d3748;
+        }
+
+        .edit-btn {
+            color: #3182ce;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .info-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .info-label {
+            color: #718096;
+            font-size: 13px;
+        }
+
+        .info-value {
+            color: #2d3748;
+            font-weight: 500;
+        }
+
+        /* Travel Profile */
+        .profile-header {
+            display: flex;
+            align-items: center;
+            justify-content: between;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .profile-title {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .profile-score {
+            background: #e6fffa;
+            color: #065f46;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .ai-badge {
+            background: #fef3c7;
+            color: #92400e;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            color: #4a5568;
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            font-size: 14px;
+            background: #f7fafc;
+            color: #2d3748;
+        }
+
+        .dropdown-arrow {
+            float: right;
+            margin-top: 2px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 15px;
+        }
+
+        .checkbox {
+            width: 16px;
+            height: 16px;
+        }
+
+        .checkbox-label {
+            font-size: 13px;
+            color: #4a5568;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo">mundo joven.</div>
+            <div class="header-center">
+                <span class="star-icon">⭐</span>
+                <div class="office-selector">
+                    Oficina Guadalajara
+                    <span style="margin-left: 8px;">▼</span>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="header-icon">📅</div>
+                <div class="header-icon">💰</div>
+                <div class="header-icon">📋</div>
+                <div class="header-icon">🔔</div>
+                <div class="user-avatar">A</div>
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item">
+                    <span class="nav-icon">🏠</span>
+                    Inicio
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="nav-icon">💙</span>
+                    Mis seguimientos
+                    <span style="margin-left: auto;">▼</span>
+                </a>
+                <div class="nav-submenu">
+                    <a href="#" class="nav-item active">Leads</a>
+                    <a href="#" class="nav-item">Cotizaciones</a>
+                    <a href="#" class="nav-item">Reservas</a>
+                </div>
+                <a href="#" class="nav-item">
+                    <span class="nav-icon">👥</span>
+                    Usuarios
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="nav-icon">🛡️</span>
+                    Administrador seguros
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="nav-icon">✈️</span>
+                    Catálogo de aerolíneas
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="nav-icon">🧾</span>
+                    TPV IATA
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="nav-icon">📄</span>
+                    Contratos
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="nav-icon">💰</span>
+                    Dynamic price
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="nav-icon">🎧</span>
+                    Atención a clientes
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="nav-icon">🔒</span>
+                    Cerrada ganada
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="nav-icon">🖥️</span>
+                    Consola operativa
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="nav-icon">⚙️</span>
+                    Config banner
+                </a>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="content-header">
+                <div class="client-title">
+                    <h1>Iván Lopez ID #11421</h1>
+                    <span class="status-badge">Pending</span>
+                </div>
+                <div class="advisor-info">
+                    <div>Asesor/a: <span class="advisor-name">Alejandra Martinez</span></div>
+                    <div>Oficina: <span class="advisor-name">Roma Norte</span> <span class="advisor-avatar">A</span></div>
+                </div>
+            </div>
+
+            <div class="tabs">
+                <div class="tab-nav">
+                    <a href="#" class="tab-item active">Overview</a>
+                    <a href="#" class="tab-item">Información de reserva</a>
+                    <a href="#" class="tab-item">Seguimiento</a>
+                    <a href="#" class="tab-item">Documentos</a>
+                    <a href="#" class="tab-item">Pagos</a>
+                </div>
+            </div>
+
+            <div class="content-body">
+                <div class="content-left">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">Información del cliente</h2>
+                            <a href="#" class="edit-btn">Edit</a>
+                        </div>
+                        <div class="card-body">
+                            <div class="info-grid">
+                                <div class="info-item">
+                                    <span class="info-label">Nombre</span>
+                                    <span class="info-value">Iván</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Apellido paterno</span>
+                                    <span class="info-value">López</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Apellido materno</span>
+                                    <span class="info-value">-</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Género</span>
+                                    <span class="info-value">Hombre</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Email</span>
+                                    <span class="info-value">i.lopez@mundojoven.com</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Teléfono</span>
+                                    <span class="info-value">+52 0000000000</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Fecha de nacimiento</span>
+                                    <span class="info-value">17 March 2001 (21yo)</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Nacionalidad</span>
+                                    <span class="info-value">Spaniard</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Número de Pasaporte</span>
+                                    <span class="info-value">PAC3333434</span>
+                                </div>
+                                <div class="info-item" style="grid-column: 1 / -1;">
+                                    <span class="info-label">Dirección</span>
+                                    <span class="info-value">Baja California 261, Colonia<br>Hipódromo Condesa, CDMX<br>Mexico</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Visa americana</span>
+                                    <span class="info-value">No</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Actividad actual</span>
+                                    <span class="info-value">Empleado</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-right">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="profile-header">
+                                <h3 class="profile-title">Travel Profile</h3>
+                                <span class="profile-score">98%</span>
+                                <div class="ai-badge">
+                                    ⚡ Magallanes AI
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Destino de viaje</label>
+                                <div class="form-control">
+                                    Turquía, Dubái <span class="dropdown-arrow">▼</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Fecha de viaje:</label>
+                                <div class="form-control">
+                                    5 Septiembre 2024 – 17 Septiembre 2024 • 12 días <span class="dropdown-arrow">▼</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Motivo del viaje | Compañeros de Viaje</label>
+                                <div class="form-control">
+                                    Placer | Familia (Adulto y niños) <span class="dropdown-arrow">▼</span>
+                                </div>
+                            </div>
+
+                            <div class="checkbox-group">
+                                <input type="checkbox" class="checkbox" checked>
+                                <label class="checkbox-label">¿Primera vez que viaja al extranjero?</label>
+                            </div>
+                            <div style="margin-left: 24px; margin-top: 8px;">
+                                <div class="form-control" style="width: 60px; display: inline-block;">
+                                    Sí <span class="dropdown-arrow">▼</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group" style="margin-top: 25px;">
+                                <label class="form-label">Fuente de referencia:</label>
+                                <div class="form-control">
+                                    Manychat <span class="dropdown-arrow">▼</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Presupuesto</label>
+                                <div class="form-control">
+                                    50,000 - 70,000 MXN <span class="dropdown-arrow">▼</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Prefiere vuelo directo o con escala (visa americana)?</label>
+                                <div class="form-control">
+                                    Directo <span class="dropdown-arrow">▼</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
