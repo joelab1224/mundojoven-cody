@@ -397,6 +397,38 @@
             font-size: 13px;
             color: #4a5568;
         }
+
+        /* Editable Fields */
+        .editable-field {
+            width: 100%;
+            padding: 6px 10px;
+            border: 1px solid #e2e8f0;
+            border-radius: 4px;
+            font-size: 14px;
+            background: white;
+            color: #2d3748;
+            font-weight: 500;
+            transition: border-color 0.2s;
+        }
+
+        .editable-field:focus {
+            outline: none;
+            border-color: #3182ce;
+            box-shadow: 0 0 0 1px #3182ce;
+        }
+
+        .editable-field:hover {
+            border-color: #cbd5e0;
+        }
+
+        textarea.editable-field {
+            resize: vertical;
+            min-height: 60px;
+        }
+
+        select.editable-field {
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -476,7 +508,7 @@
                     <span class="status-badge">Pending</span>
                 </div>
                 <div class="advisor-info">
-                    <div>Asesor/a: <span class="advisor-name">Alejandra Martinez</span></div>
+                    <div>Asesor/a: <input type="text" class="editable-field" id="advisor-name" value="Alejandra Martinez" onchange="updateIframeContext()" style="width: 150px; display: inline-block; margin-left: 5px;"></div>
                     <div>Oficina: <span class="advisor-name">Roma Norte</span> <span class="advisor-avatar">A</span></div>
                 </div>
             </div>
@@ -502,51 +534,60 @@
                             <div class="info-grid">
                                 <div class="info-item">
                                     <span class="info-label">Nombre</span>
-                                    <span class="info-value">Iván</span>
+                                    <input type="text" class="editable-field" id="client-name" value="Iván" onchange="updateIframeContext()">
                                 </div>
                                 <div class="info-item">
                                     <span class="info-label">Apellido paterno</span>
-                                    <span class="info-value">López</span>
+                                    <input type="text" class="editable-field" id="client-lastname" value="López" onchange="updateIframeContext()">
                                 </div>
                                 <div class="info-item">
                                     <span class="info-label">Apellido materno</span>
-                                    <span class="info-value">-</span>
+                                    <input type="text" class="editable-field" id="client-lastname2" value="-" onchange="updateIframeContext()">
                                 </div>
                                 <div class="info-item">
                                     <span class="info-label">Género</span>
-                                    <span class="info-value">Hombre</span>
+                                    <select class="editable-field" id="client-gender" onchange="updateIframeContext()">
+                                        <option value="Hombre" selected>Hombre</option>
+                                        <option value="Mujer">Mujer</option>
+                                        <option value="Otro">Otro</option>
+                                    </select>
                                 </div>
                                 <div class="info-item">
                                     <span class="info-label">Email</span>
-                                    <span class="info-value">i.lopez@mundojoven.com</span>
+                                    <input type="email" class="editable-field" id="client-email" value="i.lopez@mundojoven.com" onchange="updateIframeContext()">
                                 </div>
                                 <div class="info-item">
                                     <span class="info-label">Teléfono</span>
-                                    <span class="info-value">+52 0000000000</span>
+                                    <input type="tel" class="editable-field" id="client-phone" value="+52 0000000000" onchange="updateIframeContext()">
                                 </div>
                                 <div class="info-item">
                                     <span class="info-label">Fecha de nacimiento</span>
-                                    <span class="info-value">17 March 2001 (21yo)</span>
+                                    <input type="text" class="editable-field" id="client-birthdate" value="17 March 2001 (21yo)" onchange="updateIframeContext()">
                                 </div>
                                 <div class="info-item">
                                     <span class="info-label">Nacionalidad</span>
-                                    <span class="info-value">Spaniard</span>
+                                    <input type="text" class="editable-field" id="client-nationality" value="Spaniard" onchange="updateIframeContext()">
                                 </div>
                                 <div class="info-item">
                                     <span class="info-label">Número de Pasaporte</span>
-                                    <span class="info-value">PAC3333434</span>
+                                    <input type="text" class="editable-field" id="client-passport" value="PAC3333434" onchange="updateIframeContext()">
                                 </div>
                                 <div class="info-item" style="grid-column: 1 / -1;">
                                     <span class="info-label">Dirección</span>
-                                    <span class="info-value">Baja California 261, Colonia<br>Hipódromo Condesa, CDMX<br>Mexico</span>
+                                    <textarea class="editable-field" id="client-address" onchange="updateIframeContext()" rows="3">Baja California 261, Colonia
+Hipódromo Condesa, CDMX
+Mexico</textarea>
                                 </div>
                                 <div class="info-item">
                                     <span class="info-label">Visa americana</span>
-                                    <span class="info-value">No</span>
+                                    <select class="editable-field" id="client-visa" onchange="updateIframeContext()">
+                                        <option value="No" selected>No</option>
+                                        <option value="Sí">Sí</option>
+                                    </select>
                                 </div>
                                 <div class="info-item">
                                     <span class="info-label">Actividad actual</span>
-                                    <span class="info-value">Empleado</span>
+                                    <input type="text" class="editable-field" id="client-activity" value="Empleado" onchange="updateIframeContext()">
                                 </div>
                             </div>
                         </div>
@@ -566,54 +607,43 @@
 
                             <div class="form-group">
                                 <label class="form-label">Destino de viaje</label>
-                                <div class="form-control">
-                                    Turquía, Dubái <span class="dropdown-arrow">▼</span>
-                                </div>
+                                <input type="text" class="editable-field" id="travel-destination" value="Turquía, Dubái" onchange="updateIframeContext()" style="background: #f7fafc;">
                             </div>
 
                             <div class="form-group">
                                 <label class="form-label">Fecha de viaje:</label>
-                                <div class="form-control">
-                                    5 Septiembre 2024 – 17 Septiembre 2024 • 12 días <span class="dropdown-arrow">▼</span>
-                                </div>
+                                <input type="text" class="editable-field" id="travel-dates" value="5 Septiembre 2024 – 17 Septiembre 2024 • 12 días" onchange="updateIframeContext()" style="background: #f7fafc;">
                             </div>
 
                             <div class="form-group">
                                 <label class="form-label">Motivo del viaje | Compañeros de Viaje</label>
-                                <div class="form-control">
-                                    Placer | Familia (Adulto y niños) <span class="dropdown-arrow">▼</span>
-                                </div>
+                                <input type="text" class="editable-field" id="travel-purpose" value="Placer | Familia (Adulto y niños)" onchange="updateIframeContext()" style="background: #f7fafc;">
                             </div>
 
-                            <div class="checkbox-group">
-                                <input type="checkbox" class="checkbox" checked>
-                                <label class="checkbox-label">¿Primera vez que viaja al extranjero?</label>
-                            </div>
-                            <div style="margin-left: 24px; margin-top: 8px;">
-                                <div class="form-control" style="width: 60px; display: inline-block;">
-                                    Sí <span class="dropdown-arrow">▼</span>
-                                </div>
+                            <div class="form-group">
+                                <label class="form-label">¿Primera vez que viaja al extranjero?</label>
+                                <select class="editable-field" id="travel-first-time" onchange="updateIframeContext()" style="background: #f7fafc;">
+                                    <option value="Sí" selected>Sí</option>
+                                    <option value="No">No</option>
+                                </select>
                             </div>
 
                             <div class="form-group" style="margin-top: 25px;">
                                 <label class="form-label">Fuente de referencia:</label>
-                                <div class="form-control">
-                                    Manychat <span class="dropdown-arrow">▼</span>
-                                </div>
+                                <input type="text" class="editable-field" id="travel-source" value="Manychat" onchange="updateIframeContext()" style="background: #f7fafc;">
                             </div>
 
                             <div class="form-group">
                                 <label class="form-label">Presupuesto</label>
-                                <div class="form-control">
-                                    50,000 - 70,000 MXN <span class="dropdown-arrow">▼</span>
-                                </div>
+                                <input type="text" class="editable-field" id="travel-budget" value="50,000 - 70,000 MXN" onchange="updateIframeContext()" style="background: #f7fafc;">
                             </div>
 
                             <div class="form-group">
                                 <label class="form-label">Prefiere vuelo directo o con escala (visa americana)?</label>
-                                <div class="form-control">
-                                    Directo <span class="dropdown-arrow">▼</span>
-                                </div>
+                                <select class="editable-field" id="travel-flight-preference" onchange="updateIframeContext()" style="background: #f7fafc;">
+                                    <option value="Directo" selected>Directo</option>
+                                    <option value="Con escala">Con escala</option>
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -648,8 +678,53 @@
                 aiBadge.innerHTML = '⚡ Magallanes AI';
             } else {
                 aiBadge.innerHTML = '⚡ Magallanes AI';
+                // Update iframe context when opening
+                updateIframeContext();
             }
         }
+
+        function updateIframeContext() {
+            // Extract data from editable fields - Client Information
+            const advisorName = document.getElementById('advisor-name').value;
+            const clientName = document.getElementById('client-name').value;
+            const clientLastName = document.getElementById('client-lastname').value;
+            const clientEmail = document.getElementById('client-email').value;
+            const clientPhone = document.getElementById('client-phone').value;
+            const clientGender = document.getElementById('client-gender').value;
+            const clientNationality = document.getElementById('client-nationality').value;
+            const clientPassport = document.getElementById('client-passport').value;
+            const clientAddress = document.getElementById('client-address').value;
+            const clientVisa = document.getElementById('client-visa').value;
+            const clientActivity = document.getElementById('client-activity').value;
+            const clientBirthdate = document.getElementById('client-birthdate').value;
+            
+            // Extract data from editable fields - Travel Profile
+            const travelDestination = document.getElementById('travel-destination').value;
+            const travelDates = document.getElementById('travel-dates').value;
+            const travelPurpose = document.getElementById('travel-purpose').value;
+            const travelFirstTime = document.getElementById('travel-first-time').value;
+            const travelSource = document.getElementById('travel-source').value;
+            const travelBudget = document.getElementById('travel-budget').value;
+            const travelFlightPreference = document.getElementById('travel-flight-preference').value;
+            
+            // Build the context XML with comprehensive client and travel information
+            const context = `<asesor_activo>${advisorName}</asesor_activo><cliente><informacion><nombre>${clientName}</nombre><apellido_paterno>${clientLastName}</apellido_paterno><email>${clientEmail}</email><telefono>${clientPhone}</telefono><genero>${clientGender}</genero><nacionalidad>${clientNationality}</nacionalidad><pasaporte>${clientPassport}</pasaporte><direccion>${clientAddress}</direccion><visa_americana>${clientVisa}</visa_americana><actividad_actual>${clientActivity}</actividad_actual><fecha_nacimiento>${clientBirthdate}</fecha_nacimiento></informacion><perfil_viaje><destino>${travelDestination}</destino><fechas>${travelDates}</fechas><motivo_companeros>${travelPurpose}</motivo_companeros><primera_vez_extranjero>${travelFirstTime}</primera_vez_extranjero><fuente_referencia>${travelSource}</fuente_referencia><presupuesto>${travelBudget}</presupuesto><preferencia_vuelo>${travelFlightPreference}</preferencia_vuelo></perfil_viaje></cliente>`;
+            
+            // URL encode the context
+            const encodedContext = encodeURIComponent(context);
+            
+            // Update iframe src
+            const iframe = document.querySelector('iframe');
+            if (iframe) {
+                iframe.src = `https://cody-assistant-mundojoven.vercel.app/?context=${encodedContext}`;
+                console.log('Updated iframe context:', context);
+            }
+        }
+
+        // Initialize context on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateIframeContext();
+        });
     </script>
 </body>
 </html>
