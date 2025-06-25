@@ -227,15 +227,31 @@
         .content-body {
             display: flex;
             padding: 30px;
-            gap: 30px;
+            gap: 10px;
         }
 
         .content-left {
-            flex: 2;
+            flex: 1;
+        }
+
+        .content-middle {
+            flex: 1;
         }
 
         .content-right {
-            flex: 1;
+            flex: 1.5;
+            transition: all 0.3s ease;
+        }
+
+        .content-right.hidden {
+            flex: 0;
+            overflow: hidden;
+            opacity: 0;
+            max-width: 0;
+        }
+
+        .content-body.expanded {
+            gap: 30px;
         }
 
         .card {
@@ -324,6 +340,18 @@
             display: flex;
             align-items: center;
             gap: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .ai-badge:hover {
+            background: #fde68a;
+            transform: scale(1.05);
+        }
+
+        .ai-badge.active {
+            background: #3182ce;
+            color: white;
         }
 
         .form-group {
@@ -396,11 +424,9 @@
         <div class="sidebar">
             <nav class="sidebar-nav">
                 <a href="#" class="nav-item">
-                    <span class="nav-icon">🏠</span>
                     Inicio
                 </a>
                 <a href="#" class="nav-item">
-                    <span class="nav-icon">💙</span>
                     Mis seguimientos
                     <span style="margin-left: auto;">▼</span>
                 </a>
@@ -410,43 +436,33 @@
                     <a href="#" class="nav-item">Reservas</a>
                 </div>
                 <a href="#" class="nav-item">
-                    <span class="nav-icon">👥</span>
                     Usuarios
                 </a>
                 <a href="#" class="nav-item">
-                    <span class="nav-icon">🛡️</span>
                     Administrador seguros
                 </a>
                 <a href="#" class="nav-item">
-                    <span class="nav-icon">✈️</span>
                     Catálogo de aerolíneas
                 </a>
                 <a href="#" class="nav-item">
-                    <span class="nav-icon">🧾</span>
                     TPV IATA
                 </a>
                 <a href="#" class="nav-item">
-                    <span class="nav-icon">📄</span>
                     Contratos
                 </a>
                 <a href="#" class="nav-item">
-                    <span class="nav-icon">💰</span>
                     Dynamic price
                 </a>
                 <a href="#" class="nav-item">
-                    <span class="nav-icon">🎧</span>
                     Atención a clientes
                 </a>
                 <a href="#" class="nav-item">
-                    <span class="nav-icon">🔒</span>
                     Cerrada ganada
                 </a>
                 <a href="#" class="nav-item">
-                    <span class="nav-icon">🖥️</span>
                     Consola operativa
                 </a>
                 <a href="#" class="nav-item">
-                    <span class="nav-icon">⚙️</span>
                     Config banner
                 </a>
             </nav>
@@ -475,7 +491,7 @@
                 </div>
             </div>
 
-            <div class="content-body">
+            <div class="content-body expanded">
                 <div class="content-left">
                     <div class="card">
                         <div class="card-header">
@@ -537,13 +553,13 @@
                     </div>
                 </div>
 
-                <div class="content-right">
+                <div class="content-middle">
                     <div class="card">
                         <div class="card-body">
                             <div class="profile-header">
                                 <h3 class="profile-title">Travel Profile</h3>
                                 <span class="profile-score">98%</span>
-                                <div class="ai-badge">
+                                <div class="ai-badge active" onclick="toggleMagallanes()">
                                     ⚡ Magallanes AI
                                 </div>
                             </div>
@@ -602,8 +618,38 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="content-right hidden">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="profile-header">
+                                <h3 class="profile-title">Magallanes AI</h3>
+                            </div>
+                            <iframe src="https://cody-assistant-mundojoven.vercel.app/" style="width: 100%; height: 700px; border: none;"></iframe>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+
+    <script>
+        function toggleMagallanes() {
+            const contentRight = document.querySelector('.content-right');
+            const aiBadge = document.querySelector('.ai-badge');
+            const contentBody = document.querySelector('.content-body');
+            
+            contentRight.classList.toggle('hidden');
+            aiBadge.classList.toggle('active');
+            contentBody.classList.toggle('expanded');
+            
+            // Update badge text based on state
+            if (contentRight.classList.contains('hidden')) {
+                aiBadge.innerHTML = '⚡ Magallanes AI';
+            } else {
+                aiBadge.innerHTML = '⚡ Magallanes AI';
+            }
+        }
+    </script>
 </body>
 </html>

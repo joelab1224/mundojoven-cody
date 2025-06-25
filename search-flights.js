@@ -20,12 +20,12 @@ async function searchFlights() {
     console.log('📋 User:', loginResponse.data.USER_NAME);
 
     // Step 2: Search for flights
-    console.log('\n🔍 Searching for flights from MEX to JFK...');
+    console.log('\n🔍 Searching for flights from MEX to DXB...');
     
     const flightSearchRequest = {
       flightType: 'REDONDO',
-      fhDeperture: '18-10-2025',
-      fhComback: '23-10-2025',
+      fhDeperture: '05-09-2025',
+      fhComback: '17-09-2025',
       adults: 1,
       childs: 0,
       infants: 0,
@@ -33,7 +33,7 @@ async function searchFlights() {
       ageEnfants: [],
       cabinPref: 'Economy',
       country: 'mexico',
-      destination: 'JFK',
+      destination: 'DXB',
       origin: 'MEX',
       maxStops: 3,
       sender: `fuv/${USERNAME}`,
